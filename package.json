@@ -8,8 +8,25 @@
     "start": "next start"
   },
   "dependencies": {
+    "@coreui/icons": "^2.0.0-rc.0",
+    "@zeit/next-css": "^1.0.1",
+    "connect-mongo": "^3.2.0",
+    "dotenv": "^8.2.0",
+    "express-session": "^1.17.1",
+    "mongodb": "^3.6.3",
     "next": "10.0.3",
+    "next-auth": "^3.1.0",
+    "next-connect": "^0.9.1",
+    "next-session": "^3.4.0",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "styled-components": "^5.2.1",
+    "tailwindcss": "^2.0.1",
+    "twin.macro": "^2.0.5"
+  },
+  "babelMacros": {
+    "twin": {
+      "preset": "styled-components"
+    }
   }
 }

@@ -1,65 +1,70 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-
+import Head from "next/head";
+import { useRouter } from "next/router";
+import "twin.macro";
+import { signIn, signOut, useSession } from "next-auth/client";
 export default function Home() {
+  const [session, loading] = useSession();
+  const router = useRouter();
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <>
+      {!session && (
+        <>
+          <div>
+            <Head>
+              <title>Home</title>
+              <link rel="icon" href="/favicon.ico" />
+              <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+              />
+            </Head>
+            <main tw="flex justify-center h-screen w-screen">
+              <div tw="flex flex-col items-center justify-center w-96 h-96 mt-36">
+                <h1 tw="text-3xl my-5">Login here 👇</h1>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+                <button
+                  onClick={signIn}
+                  tw="mt-3 mx-12 text-lg font-semibold 
+                bg-gray-800 w-full text-white rounded-lg
+                px-6 py-3 block shadow-xl hover:text-white hover:bg-black"
+                >
+                  <i className="fab fa-discord"></i>
+                  <span tw="ml-2">Login</span>
+                </button>
+              </div>
+            </main>
+          </div>
+        </>
+      )}
+      {session && (
+        <>
+          <Head>
+            <title>Profile</title>
+            <link rel="icon" href="/favicon.ico" />
+            <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+            />
+          </Head>
+          <main tw="flex justify-center h-screen w-screen">
+            <div tw="flex flex-col items-center justify-center w-96 h-96 mt-36">
+              <h1 tw="text-3xl my-5">Hey {session.user.name} 👋</h1>
+              <button
+                onClick={signOut}
+                tw="mt-3 mx-12 text-lg font-semibold 
+		  bg-gray-800 w-full text-white rounded-lg
+		  px-6 py-3 block shadow-xl hover:text-white hover:bg-black"
+              >
+                <span tw="ml-2">Logout</span>
+              </button>
+            </div>
+          </main>
+        </>
+      )}
+    </>
+  );
 }
