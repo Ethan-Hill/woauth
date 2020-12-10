@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import "twin.macro";
-import { signIn, signOut, useSession } from "next-auth/client";
+import axios from "axios";
+import { signIn, signOut, useSession, getSession } from "next-auth/client";
 export default function Home() {
   const [session, loading] = useSession();
-  const router = useRouter();
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -27,7 +27,7 @@ export default function Home() {
                 <h1 tw="text-3xl my-5">Login here 👇</h1>
 
                 <button
-                  onClick={signIn}
+                  onClick={() => signIn("discord")}
                   tw="mt-3 mx-12 text-lg font-semibold 
                 bg-gray-800 w-full text-white rounded-lg
                 px-6 py-3 block shadow-xl hover:text-white hover:bg-black"
