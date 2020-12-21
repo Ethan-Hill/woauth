@@ -1,5 +1,5 @@
-import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
+import NextAuth from 'next-auth';
+import Providers from 'next-auth/providers';
 
 const options = {
   site: process.env.NEXTAUTH_URL,
@@ -15,16 +15,11 @@ const options = {
   session: {
     jwt: true,
   },
-  secret: "hfsrhgksgnsgnsghlwsngkljshgsh",
+  pages: {
+    signIn: '/auth/signin',
+  },
+  secret: 'hfsrhgksgnsgnsghlwsngkljshgsh',
   callbacks: {
-    /**
-     * @param  {object}  token     Decrypted JSON Web Token
-     * @param  {object}  user      User object      (only available on sign in)
-     * @param  {object}  account   Provider account (only available on sign in)
-     * @param  {object}  profile   Provider profile (only available on sign in)
-     * @param  {boolean} isNewUser True if new user (only available on sign in)
-     * @return {object}            JSON Web Token that will be saved
-     */
     jwt: async (token, user, account, profile, isNewUser) => {
       const isSignIn = user ? true : false;
       // Add auth_time to token on signin in
@@ -41,6 +36,12 @@ const options = {
       session.user.discriminator = token.discriminator;
 
       return session;
+    },
+    redirect: async (url, _) => {
+      if (url === '/api/auth/signin') {
+        return Promise.resolve('/dashboard');
+      }
+      return Promise.resolve('/api/auth/signin');
     },
   },
 };

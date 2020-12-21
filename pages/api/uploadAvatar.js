@@ -4,7 +4,7 @@ import { getSession } from 'next-auth/client';
 
 // Initializing the cors middleware
 const cors = Cors({
-  methods: ['GET', 'HEAD'],
+  methods: ['GET', 'HEAD', 'PATCH'],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -26,21 +26,25 @@ async function handler(req, res) {
   await runMiddleware(req, res, cors);
 
   // Rest of the API logic
-  if (req.method === 'GET') {
-    const token = req.query.token;
-    console.log(token);
-
-    let guilds = await axios
-      .get('https://discord.com/api/users/@me/guilds', {
-        headers: {
-          Authorization: `Bearer ` + token,
+  if (req.method === 'PATCH') {
+    const image = req.body.image;
+    let user = await axios
+      .patch(
+        'https://discord.com/api/users/@me',
+        {
+          image,
         },
-      })
-      .then((guilds) => {
-        return guilds;
+        {
+          headers: {
+            Authorization: `Bot ` + process.env.DISCORD_CLIENT_TOKEN,
+          },
+        },
+      )
+      .then((user) => {
+        return user.data;
       })
       .catch((err) => console.log(err));
-    res.send(guilds.data);
+    res.send(user);
   } else {
     res.status(201);
   }

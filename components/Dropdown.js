@@ -1,26 +1,19 @@
-import React from "react";
-import Popper from "popper.js";
-import "twin.macro";
+import React from 'react';
+import Popper from 'popper.js';
+import { useRouter } from 'next/router';
+import { signIn, signOut, useSession, getSession } from 'next-auth/client';
+import 'twin.macro';
 
 const Dropdown = ({ color }) => {
+  const router = useRouter();
   // dropdown props
-  const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
-  const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
-  const openDropdownPopover = () => {
-    new Popper(btnDropdownRef.current, popoverDropdownRef.current, {
-      placement: "bottom-start",
-    });
-    setDropdownPopoverShow(true);
-  };
-  const closeDropdownPopover = () => {
-    setDropdownPopoverShow(false);
-  };
   // bg colors
   let bgColor;
-  color === "white"
-    ? (bgColor = "bg-gray-800")
-    : (bgColor = "bg-" + color + "-500");
+  color === 'white'
+    ? (bgColor = 'bg-gray-800')
+    : (bgColor = 'bg-' + color + '-500');
+
   return (
     <>
       <div tw="flex flex-wrap absolute right-0 top-16">
@@ -29,7 +22,7 @@ const Dropdown = ({ color }) => {
             <div
               ref={popoverDropdownRef}
               tw="text-base z-50 bg-Light float-left py-2 list-none text-left rounded shadow-lg mt-1"
-              style={{ minWidth: "12rem" }}
+              style={{ minWidth: '12rem' }}
             >
               <a
                 href="#pablo"
@@ -54,11 +47,11 @@ const Dropdown = ({ color }) => {
               </a>
               <div tw="h-0 my-2 border border-solid border-t-0 border-gray-900 opacity-25" />
               <a
-                href="#pablo"
+                href="#"
                 tw="text-sm py-2 px-4 font-normal block w-full  bg-transparent hover:bg-Darkest"
-                onClick={(e) => e.preventDefault()}
+                onClick={signOut}
               >
-                Seprated link
+                Logout
               </a>
             </div>
           </div>
