@@ -1,4 +1,4 @@
-## Next.js Discord OAuth
+## woauth
 ![Login](https://i.imgur.com/W9jExWN.png)
 
 
