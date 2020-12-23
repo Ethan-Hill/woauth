@@ -1,18 +1,10 @@
 import React from 'react';
-import Popper from 'popper.js';
-import { useRouter } from 'next/router';
-import { signIn, signOut, useSession, getSession } from 'next-auth/client';
+import { signOut } from 'next-auth/client';
 import 'twin.macro';
 
-const Dropdown = ({ color }) => {
-  const router = useRouter();
+const Dropdown = () => {
   // dropdown props
   const popoverDropdownRef = React.createRef();
-  // bg colors
-  let bgColor;
-  color === 'white'
-    ? (bgColor = 'bg-gray-800')
-    : (bgColor = 'bg-' + color + '-500');
 
   return (
     <>
@@ -46,13 +38,13 @@ const Dropdown = ({ color }) => {
                 Something else here
               </a>
               <div tw="h-0 my-2 border border-solid border-t-0 border-gray-900 opacity-25" />
-              <a
-                href="#"
-                tw="text-sm py-2 px-4 font-normal block w-full  bg-transparent hover:bg-Darkest"
+              <button
+                tw="text-sm py-2 px-4 font-normal block w-full bg-transparent hover:bg-Darkest"
                 onClick={signOut}
+                type="button"
               >
                 Logout
-              </a>
+              </button>
             </div>
           </div>
         </div>

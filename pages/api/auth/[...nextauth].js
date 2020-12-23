@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
@@ -17,13 +18,13 @@ const options = {
   },
   pages: {
     signIn: '/auth/signin',
+    error: '/auth/error',
   },
   secret: 'hfsrhgksgnsgnsghlwsngkljshgsh',
   callbacks: {
-    jwt: async (token, user, account, profile, isNewUser) => {
-      const isSignIn = user ? true : false;
+    jwt: async (token, user, account, profile) => {
       // Add auth_time to token on signin in
-      if (isSignIn) {
+      if (user) {
         token.accessToken = account.accessToken;
         token.id = profile.id;
         token.discriminator = profile.discriminator;
@@ -37,7 +38,7 @@ const options = {
 
       return session;
     },
-    redirect: async (url, _) => {
+    redirect: async (url) => {
       if (url === '/api/auth/signin') {
         return Promise.resolve('/dashboard');
       }

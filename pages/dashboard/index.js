@@ -1,16 +1,17 @@
+import React from 'react';
 import Head from 'next/head';
 import axios from 'axios';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useSession, getSession } from 'next-auth/client';
 import Navbar from '../../components/Navbar';
 import UserContainer from '../../components/UserContainer';
 import GuildsOwnedContainer from '../../components/Dashboard/GuildsOwnedContainer';
 import GuildsInsideContainer from '../../components/Dashboard/GuildsInsideContainer';
-import { signIn, signOut, useSession, getSession } from 'next-auth/client';
+
 import 'twin.macro';
 
 export default function Dashboard({ guilds }) {
-  const [showResults, setShowResults] = useState(false);
+  const [showResults, setShowResults] = React.useState(false);
   const router = useRouter();
   const page = router.pathname;
   const newTitle = page.split('/');
@@ -67,7 +68,7 @@ export async function getServerSideProps(ctx) {
   const res = await axios.get('http://localhost:3000/api/userGuilds', {
     params: { token: session.user.accessToken },
   });
-  const data = res.data;
+  const { data } = res;
   return {
     props: {
       guilds: data,

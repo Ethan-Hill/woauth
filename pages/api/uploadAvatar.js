@@ -1,6 +1,5 @@
 import Cors from 'cors';
 import axios from 'axios';
-import { getSession } from 'next-auth/client';
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -25,10 +24,12 @@ async function handler(req, res) {
   // Run the middleware
   await runMiddleware(req, res, cors);
 
+  const { body } = req;
+
   // Rest of the API logic
   if (req.method === 'PATCH') {
-    const image = req.body.image;
-    let user = await axios
+    const { image } = body;
+    const user = await axios
       .patch(
         'https://discord.com/api/users/@me',
         {
@@ -36,13 +37,12 @@ async function handler(req, res) {
         },
         {
           headers: {
-            Authorization: `Bot ` + process.env.DISCORD_CLIENT_TOKEN,
+            Authorization: `Bot ${process.env.DISCORD_CLIENT_TOKEN}`,
           },
         },
       )
-      .then((user) => {
-        return user.data;
-      })
+      .then((changedUser) => changedUser.data)
+
       .catch((err) => console.log(err));
     res.send(user);
   } else {

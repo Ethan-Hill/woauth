@@ -1,14 +1,14 @@
+/* eslint-disable react/react-in-jsx-scope */
 import Head from 'next/head';
 import { useState } from 'react';
+import { useSession } from 'next-auth/client';
 import Navbar from '../components/Navbar';
-import { signIn, signOut, useSession, getSession } from 'next-auth/client';
 import 'twin.macro';
 
 export default function Home() {
   const [showResults, setShowResults] = useState(false);
   const title = 'Home';
   const [session, loading] = useSession();
-
   if (loading) {
     return <p>Loading...</p>;
   }

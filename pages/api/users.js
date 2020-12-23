@@ -1,16 +1,13 @@
-import nextConnect from "next-connect";
-import middleware from "../../middlewares/middleware";
+import nextConnect from 'next-connect';
 
 const handler = nextConnect();
-
-handler.use(middleware); // see how we're reusing our middleware
 
 // POST /api/users
 handler.post(async (req, res) => {
   const { name, avatar, email } = req.body;
 
   await req.db
-    .collection("users")
+    .collection('users')
     .insertOne({ name, avatar, email })
     .then(() => {
       res.status(201);

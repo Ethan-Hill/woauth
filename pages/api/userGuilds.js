@@ -1,6 +1,5 @@
 import Cors from 'cors';
 import axios from 'axios';
-import { getSession } from 'next-auth/client';
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -24,20 +23,15 @@ function runMiddleware(req, res, fn) {
 async function handler(req, res) {
   // Run the middleware
   await runMiddleware(req, res, cors);
-
+  const { query } = req;
+  const { token } = query;
   // Rest of the API logic
   if (req.method === 'GET') {
-    const token = req.query.token;
-    console.log(token);
-
-    let guilds = await axios
+    const guilds = await axios
       .get('https://discord.com/api/users/@me/guilds', {
         headers: {
-          Authorization: `Bearer ` + token,
+          Authorization: `Bearer ${token}`,
         },
-      })
-      .then((guilds) => {
-        return guilds;
       })
       .catch((err) => console.log(err));
     res.send(guilds.data);

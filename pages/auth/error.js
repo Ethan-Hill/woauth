@@ -1,11 +1,12 @@
 import React from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+
 import { signIn } from 'next-auth/client';
 import 'twin.macro';
 
-console.log(signIn);
-
-export default function SignIn() {
+export default function error() {
+  const router = useRouter();
   return (
     <>
       <div>
@@ -19,8 +20,8 @@ export default function SignIn() {
         </Head>
         <main tw="flex justify-center h-screen w-screen">
           <div tw="flex flex-col items-center justify-center w-96 h-96 mt-36">
-            <h1 tw="text-3xl my-5">Login here 👇</h1>
-
+            <h1 tw="text-3xl my-5">Sorry, there was an error</h1>
+            <h2 tw="text-2xl my-5 text-red-500">Error: {router.query.error}</h2>
             <button
               onClick={() => signIn('discord')}
               tw="mt-3 mx-12 text-lg font-semibold 
