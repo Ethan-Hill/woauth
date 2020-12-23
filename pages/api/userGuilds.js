@@ -27,18 +27,16 @@ async function handler(req, res) {
   const { token } = query;
   // Rest of the API logic
   if (req.method === 'GET') {
-    const guilds = await axios
-      .get('https://discord.com/api/users/@me/guilds', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .catch((err) => console.log(err));
+    const guilds = await axios.get('https://discord.com/api/users/@me/guilds', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (guilds) {
       res.send(guilds.data);
     } else {
       await axios
-        .post('https://woauth.vercel.app/api/token')
+        .get('https://woauth.vercel.app/api/token')
         .then(async (newToken) => {
           const { refresh_token } = newToken;
           console.log(refresh_token);

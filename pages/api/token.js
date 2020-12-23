@@ -24,7 +24,7 @@ async function handler(req, res) {
   // Run the middleware
   await runMiddleware(req, res, cors);
   // Rest of the API logic
-  if (req.method === 'POST') {
+  if (req.method === 'GET') {
     const newtoken = await axios
       .post('https://discord.com/api/oauth2/token', {
         params: {
