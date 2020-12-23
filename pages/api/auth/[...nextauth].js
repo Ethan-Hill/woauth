@@ -12,7 +12,6 @@ const options = {
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
     }),
   ],
-  database: process.env.DATABASE_URL,
   session: {
     jwt: true,
   },
