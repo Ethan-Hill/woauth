@@ -60,7 +60,7 @@ export async function getServerSideProps(ctx) {
     ctx.res.end();
     return {};
   }
-  const res = await axios.get('http://localhost:3000/api/userGuilds', {
+  const res = await axios.get('https://woauth.vercel.app/api/userGuilds', {
     params: { token: session.user.accessToken },
   });
   const { data } = res;
