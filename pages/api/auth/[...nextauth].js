@@ -19,7 +19,7 @@ const options = {
     signIn: '/auth/signin',
     error: '/auth/error',
   },
-  secret: 'hfsrhgksgnsgnsghlwsngkljshgsh',
+  secret: process.env.JWT_SCERET,
   callbacks: {
     jwt: async (token, user, account, profile) => {
       // Add auth_time to token on signin in
