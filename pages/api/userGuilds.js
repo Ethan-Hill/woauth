@@ -34,7 +34,26 @@ async function handler(req, res) {
         },
       })
       .catch((err) => console.log(err));
-    res.send(guilds.data);
+    if (guilds) {
+      res.send(guilds.data);
+    } else {
+      await axios
+        .post('https://woauth.vercel.app/api/token')
+        .then(async (newToken) => {
+          const { refresh_token } = newToken;
+          console.log(refresh_token);
+          const newGuilds = await axios
+            .get('https://discord.com/api/users/@me/guilds', {
+              headers: {
+                Authorization: `Bearer ${refresh_token}`,
+              },
+            })
+            .catch((err) => console.log(err));
+
+          res.send(newGuilds.data);
+        })
+        .catch((err) => console.log(err));
+    }
   } else {
     res.status(201);
   }

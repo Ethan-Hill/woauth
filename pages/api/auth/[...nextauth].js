@@ -25,6 +25,7 @@ const options = {
       // Add auth_time to token on signin in
       if (user) {
         token.accessToken = account.accessToken;
+        token.refreshToken = account.refreshToken;
         token.id = profile.id;
         token.discriminator = profile.discriminator;
       }
@@ -32,6 +33,7 @@ const options = {
     },
     session: async (session, token) => {
       session.user.accessToken = token.accessToken;
+      session.user.refreshToken = token.refreshToken;
       session.user.id = token.id;
       session.user.discriminator = token.discriminator;
 
