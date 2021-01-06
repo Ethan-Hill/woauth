@@ -7,7 +7,7 @@ module.exports = withCSS({
       // eslint-disable-next-line no-param-reassign
       config.node = { fs: 'empty' };
     }
-
     return config;
   },
+  target: 'serverless',
 });
