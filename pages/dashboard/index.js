@@ -65,13 +65,16 @@ export async function getServerSideProps(ctx) {
     ctx.res.end();
     return {};
   }
-  const res = await axios.get('https://woauth.vercel.app/api/userGuilds', {
-    params: { token: session.user.accessToken },
-  });
-  const { data } = res;
+  const newGuilds = await axios
+    .get('https://discord.com/api/users/@me/guilds', {
+      headers: {
+        Authorization: `Bearer ${session.user.accessToken}`,
+      },
+    })
+    .catch((err) => console.log(err));
   return {
     props: {
-      guilds: data,
+      guilds: newGuilds.data,
     },
   };
 }

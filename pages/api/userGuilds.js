@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import Cors from 'cors';
 import axios from 'axios';
 
@@ -27,31 +28,24 @@ async function handler(req, res) {
   const { token } = query;
   // Rest of the API logic
   if (req.method === 'GET') {
-    const guilds = await axios.get('https://discord.com/api/users/@me/guilds', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (guilds) {
-      res.send(guilds.data);
-    } else {
-      await axios
-        .get('https://woauth.vercel.app/api/token')
-        .then(async (newToken) => {
-          const { refresh_token } = newToken;
-          console.log(refresh_token);
-          const newGuilds = await axios
-            .get('https://discord.com/api/users/@me/guilds', {
-              headers: {
-                Authorization: `Bearer ${refresh_token}`,
-              },
-            })
-            .catch((err) => console.log(err));
+    await axios
+      .get('http://localhost:3000/api/token', {
+        params: { token },
+      })
+      .then(async (newToken) => {
+        const { access_token } = newToken.data;
 
-          res.send(newGuilds.data);
-        })
-        .catch((err) => console.log(err));
-    }
+        const newGuilds = await axios
+          .get('https://discord.com/api/users/@me/guilds', {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          })
+          .catch((err) => console.log(err));
+
+        res.send(newGuilds.data);
+      })
+      .catch((err) => res.send(err));
   } else {
     res.status(201);
   }

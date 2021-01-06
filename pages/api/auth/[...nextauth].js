@@ -10,6 +10,7 @@ const options = {
     Providers.Discord({
       clientId: process.env.DISCORD_CLIENT_ID,
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
+      scope: 'email identify guilds',
     }),
   ],
   session: {
@@ -41,7 +42,7 @@ const options = {
     },
     redirect: async (url) => {
       if (url === '/api/auth/signin') {
-        return Promise.resolve('/dashboard');
+        return Promise.resolve('/');
       }
       return Promise.resolve('/api/auth/signin');
     },
