@@ -46,7 +46,7 @@ export default function Dashboard({ guilds }) {
           setShowResults={toggle}
         />
 
-        <main tw="flex min-h-full flex-grow bg-Dark">
+        <main tw="flex min-h-full max-w-full flex-grow bg-Dark">
           <div tw="flex w-screen flex-wrap items-center justify-center m-0 md:m-8">
             <UserContainer session={session} />
             <GuildsOwnedContainer matches={matches} />

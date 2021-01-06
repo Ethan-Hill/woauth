@@ -3,12 +3,11 @@ import Head from 'next/head';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useSession, getSession } from 'next-auth/client';
-import Navbar from '../../components/Navbar';
-import Table from '../../components/Guilds/Table';
+import Navbar from '../../../components/Navbar';
 
 import 'twin.macro';
 
-export default function Dashboard({ guilds }) {
+export default function Guild({ guild }) {
   const [showResults, setShowResults] = React.useState(false);
   const router = useRouter();
   const page = router.pathname;
@@ -45,7 +44,7 @@ export default function Dashboard({ guilds }) {
 
         <main tw="flex min-h-full flex-grow bg-Dark">
           <div tw="flex w-screen flex-wrap items-center justify-center m-0 md:m-8">
-            <Table guilds={guilds} />
+            <h1>{guild}</h1>
           </div>
         </main>
       </section>
@@ -62,9 +61,9 @@ export async function getServerSideProps(ctx) {
   }
 
   const res = await axios
-    .get(`https://discord.com/api/users/@me/guilds`, {
+    .get(`https://discord.com/api/guilds/${ctx.params.id}`, {
       headers: {
-        Authorization: `Bearer ${session.user.accessToken}`,
+        Authorization: `Bot ${process.env.DISCORD_CLIENT_TOKEN}`,
       },
     })
     .catch((err) => console.log(err));
@@ -81,7 +80,7 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      guilds: data,
+      guild: data,
     },
   };
 }

@@ -4,7 +4,7 @@ import 'twin.macro';
 export default function Guild(props) {
   const { guild } = props;
   return (
-    <div tw="bg-Dark ease-in-out transform w-full transition duration-300 rounded shadow-xl flex flex-col justify-center p-12 m-6 items-center">
+    <div tw="bg-Dark ease-in-out w-full  transform transition duration-300 rounded shadow-xl flex flex-col justify-center p-12 mx-64 my-6 items-center">
       <img
         src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`}
         tw="w-20 h-20 rounded-full"
