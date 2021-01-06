@@ -10,7 +10,7 @@ module.exports = withCSS({
     return config;
   },
   functions: {
-    'api/**/*.js': {
+    'api/auth/[...nextauth]': {
       maxDuration: 30,
     },
   },
