@@ -9,4 +9,9 @@ module.exports = withCSS({
     }
     return config;
   },
+  functions: {
+    'api/**/*.js': {
+      maxDuration: 30,
+    },
+  },
 });
