@@ -69,6 +69,16 @@ export async function getServerSideProps(ctx) {
     })
     .catch((err) => console.log(err));
   const { data } = res;
+
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       guilds: data,
