@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
-	"start": "next start",
-	"postbuild": "next-on-netlify"
+    "start": "next start"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
@@ -22,7 +21,6 @@
     "eslint-plugin-react": "^7.21.5",
     "next": "10.0.3",
     "next-auth": "^3.1.0",
-    "next-on-netlify": "^2.7.0",
     "prettier": "^2.2.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
