@@ -9,6 +9,9 @@ module.exports = {
       minWidth: {
         screen: '100vw',
       },
+      maxWidth: {
+        screen: '100vw',
+      },
     },
   },
   plugins: [],

@@ -35,7 +35,7 @@ export default function Dashboard({ guilds }) {
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         />
       </Head>
-      <section tw="flex min-h-screen flex-col bg-Dark text-white">
+      <section tw="flex min-h-screen flex-col bg-Dark items-center text-white">
         <Navbar
           page={title}
           session={session}
@@ -43,8 +43,8 @@ export default function Dashboard({ guilds }) {
           setShowResults={toggle}
         />
 
-        <main tw="flex min-h-full flex-grow bg-Dark">
-          <div tw="flex w-screen flex-wrap items-center justify-center m-0 md:m-8">
+        <main tw="flex min-h-full max-w-7xl  flex-grow bg-Dark">
+          <div tw="flex flex-wrap items-center w-full justify-center">
             <Table guilds={guilds} />
           </div>
         </main>

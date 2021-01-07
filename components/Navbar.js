@@ -14,7 +14,7 @@ export default function Navbar(props) {
     <>
       {session && (
         <>
-          <div tw="flex max-w-full justify-between h-24 py-4 px-6 bg-Light">
+          <div tw="flex justify-between w-full h-24 py-4 bg-Light">
             <nav tw="flex justify-evenly items-center">
               <h1 tw="text-xl mx-2 font-bold">{page}</h1>
               <a
@@ -60,7 +60,7 @@ export default function Navbar(props) {
       )}
       {!session && (
         <>
-          <div tw="flex max-w-full  justify-between h-24 py-4 px-6 bg-Light">
+          <div tw="flex w-full justify-between h-24 py-4 bg-Light">
             <nav tw="flex justify-evenly items-center">
               <h1 tw="text-xl mx-2 font-bold">{page}</h1>
               <a

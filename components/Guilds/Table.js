@@ -23,24 +23,17 @@ export default function UserContainer(props) {
     return guildItemOwner;
   }
 
-  //   const guildItemOwner = matches.map((guild) => (
-  //     <Guild key={guild.id} guild={guild} />
-  //   ));
-  //   return guildItemOwner;
-
   return (
-    <div>
+    <div tw="flex flex-wrap items-center w-full p-12 justify-between bg-Darkest rounded shadow-xl text-center">
       <div tw="flex justify-center items-center">
-        <h1 tw="mx-2">Owner?</h1>
+        <h1 tw="mx-2">Owner only</h1>
         <input
           type="checkbox"
           id="switch"
           onClick={() => setOwnerGuilds(!showOwnerGuilds)}
         />
       </div>
-      <div tw="flex flex-wrap items-center p-12 justify-between bg-Darkest w-full m-6 m-4 rounded shadow-xl text-center">
-        {renderGuilds()}
-      </div>
+      {renderGuilds()}
     </div>
   );
 }
